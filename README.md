@@ -34,19 +34,44 @@ reconciling a research corpus against a live application codebase, but the same 
 any project where documentation, decisions, and a running system can drift apart — software
 projects, editorial workflows, policy documents, or any multi-document research effort.
 
-## Installation
+## Quick start
 
-This is a portable [Agent Skill](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) following the `SKILL.md` convention. To use it:
+Paste this into any chat model, then add your claim and the sources with their dates:
 
-- **Claude Code:** copy this folder into `.claude/skills/source-authority-hierarchy/` in your
-  project (or your user-level skills directory to make it available everywhere).
-- **Any other agent runtime that supports the `SKILL.md` convention:** copy this folder into that
-  runtime's equivalent skills directory. The `SKILL.md` file is self-contained — no bundled
-  script, no external dependency — so nothing else needs to be installed.
+```
+Decide which source governs this claim. Step 1: state the claim in one sentence. Step 2: type it
+(framing/policy, present-implementation fact, third-party claim, project-generated datum, or
+claimed external outcome). Step 3: list every source that speaks to it with its own date and any
+"superseded" note. Step 4: rank by a nine-tier ladder (owner decisions, governance doc, built
+artifact, current-cycle records, live implementation, framing analysis, future-work notes, older
+proposals, READMEs); tier first, date only within the winning tier. Step 5: if nothing settles
+it, do not pick one - log "OPEN - DECISION REQUIRED" with both sources, both dates, why the
+ladder failed, the cheapest test, blocking status and owner.
+
+Claim: ...
+Sources: ...
+```
+
+The full self-contained version is [`PROMPT.md`](PROMPT.md).
+
+## Works with
+
+| Surface | How | Status |
+|---|---|---|
+| Claude Code | native skill (`./install.sh --claude`) | not tested |
+| Codex | native skill via `.agents/skills` (`./install.sh --agents --project .`) | not tested |
+| Gemini CLI | native skill via `.agents/skills`, or `./install.sh --gemini --project .` | not tested |
+| Cursor | native skill via `.agents/skills`; reads `AGENTS.md` | not tested |
+| Copilot | pointer block (`./install.sh --copilot --project .`) | not tested |
+| ChatGPT / Claude.ai / Gemini (chat) | prompt (`PROMPT.md`) | not tested |
+
+Installer: `./install.sh --help`. With no target flag it changes nothing. It symlinks by default,
+`--copy` copies, `--uninstall` removes only what it installed, `--dry-run` previews.
 
 Once installed, an agent should invoke it whenever two documents disagree, whenever a claim needs
 a citation and more than one candidate source exists, or whenever a "living" status document
-might be out of sync with a decisions log.
+might be out of sync with a decisions log. `SKILL.md` is self-contained: no bundled script, no
+external dependency.
 
 ## Worked usage example (synthetic)
 
@@ -85,6 +110,26 @@ A short version of the routing logic:
 No script is bundled with this skill — it is a reasoning procedure an agent follows directly, not
 a tool it runs. There is no CLI to install.
 
+## Limits
+
+It is a reasoning procedure, not a tool: it does not read your files or verify dates for you, and
+the quality of the ruling depends on the sources you supply. The nine tiers are a default; adapt
+the placeholders in `SKILL.md` section 0 to your project. The examples are synthetic.
+
+## Related
+
+- [evidence-ledger-and-phase-handoff-convention](https://github.com/hyderhusainarastu/evidence-ledger-and-phase-handoff-convention)
+- [legacy-plan-reconciliation-matrix](https://github.com/hyderhusainarastu/legacy-plan-reconciliation-matrix)
+- [governance-records-ledger-conventions](https://github.com/hyderhusainarastu/governance-records-ledger-conventions)
+
+## Keywords
+
+source reliability, fact checking, provenance, conflict resolution, evidence ranking, research
+methods, agent skill, SKILL.md
+
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+---
+Part of palimnote-skills - more at https://github.com/hyderhusainarastu

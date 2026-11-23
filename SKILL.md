@@ -1,6 +1,6 @@
 ---
 name: source-authority-hierarchy
-description: "Resolves conflicts between sources of differing reliability by first typing the claim (framing/policy, present-implementation fact, third-party scholarship, project-generated datum, or claimed effect on people) and then ranking the sources that can speak to that type on a nine-tier authority ladder, newest-within-tier. Invoke this skill whenever two or more sources disagree about the same claim, whenever a claim needs a citation and more than one candidate source exists, whenever a status document and a decisions log might be out of sync, or whenever a project needs a standing procedure for recording and escalating unresolved contradictions instead of silently picking whichever source is convenient."
+description: "Decides which source governs a claim: type the claim, rank eligible sources on a nine-tier authority ladder, newest within tier, and log unresolved contradictions. Use when sources disagree or a claim needs a citation."
 ---
 
 # Source Authority Hierarchy
